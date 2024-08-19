@@ -1,1 +1,107 @@
 # CCCV_Calender
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Period Cycle Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f8f8;
+        }
+        .popup-container {
+            position: relative;
+            display: inline-block;
+        }
+        .popup {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        .calendar-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .popup input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="popup-container">
+    <button class="calendar-input" onclick="togglePopup()">Update Period Cycle</button>
+    <div class="popup" id="calendarPopup">
+        <label for="period-start">Select Start Date:</label>
+        <input type="date" id="period-start" name="period-start">
+        <button class="submit-btn" onclick="submitDate()">Submit</button>
+    </div>
+</div>
+
+<script>
+    function togglePopup() {
+        var popup = document.getElementById("calendarPopup");
+        popup.style.display = popup.style.display === "block" ? "none" : "block";
+    }
+
+    function submitDate() {
+        var selectedDate = document.getElementById("period-start").value;
+        if (selectedDate) {
+            alert("Period cycle updated to start on: " + selectedDate);
+            togglePopup();
+            scheduleNotification(selectedDate);
+        } else {
+            alert("Please select a date.");
+        }
+    }
+
+    function scheduleNotification(dateStr) {
+        var selectedDate = new Date(dateStr);
+        var notificationDate = new Date(selectedDate);
+        notificationDate.setDate(selectedDate.getDate() + 14);
+
+        var timeUntilNotification = notificationDate.getTime() - Date.now();
+        
+        setTimeout(function() {
+            alert("Order the Pads, It's time!");
+        }, timeUntilNotification);
+    }
+</script>
+
+</body>
+</html>
